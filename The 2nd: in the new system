@@ -1,1 +1,6 @@
+arch-chroot /mnt
 
+文本编辑器和网络：
+pacman -S  nano networkmanager
+开机自启网络：
+systemctl enable  NetworkManager
