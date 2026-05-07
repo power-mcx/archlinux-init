@@ -16,9 +16,20 @@ sudo systemctl stop NetworkManager
 sudo systemctl start NetworkManager
 sudo systemctl enable --now NetworkManager
 
+设置中文：
+nano /etc/locale.gen
+去掉注释：
+zh_CN.UTF-8 UTF-8
+en_US.UTF-8 UTF-8
+（如果是需要设置双系统  可以此时将此配置最后一行提前就设置好 取消掉GRUB_DISABLE_OS_PROBER=false    前面的#号后再保存）
+sudo locale-gen
+全局环境变量：
+sudo echo 'LANG=zh_CN.UTF-8' | sudo tee /etc/locale.conf
+source /etc/locale.conf
+安装google字体----解决中文乱码
+sudo pacman -S  --needed noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-dejavu ttf-liberation
 
-
-
+reboot
 
 
 
