@@ -1,0 +1,23 @@
+# 列出可用的亚洲时区
+timedatectl list-timezones | grep Shanghai
+
+# 设置为上海时区（中国标准时间 UTC+8）
+sudo timedatectl set-timezone Asia/Shanghai
+
+# 确保 NTP 同步开启
+sudo timedatectl set-ntp true
+
+# 强制立即同步时间
+sudo systemctl restart systemd-timesyncd
+
+验证：
+timedatectl
+
+类似于：
+Local time: Thu 2025-05-07 12:50:xx CST
+Universal time: Thu 2025-05-07 04:50:xx UTC
+Time zone: Asia/Shanghai (CST, +0800)
+RTC time: Thu 2025-05-07 12:50:xx
+System clock synchronized: yes
+NTP service: active
+RTC in local TZ: yes
