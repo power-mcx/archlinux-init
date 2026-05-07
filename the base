@@ -1,1 +1,49 @@
+下载：arch官网
+u盘制作：rufus    选GPT
 
+BIOS启动，关闭
+
+联网：
+rfkill unblock wifi
+iwctl
+device list
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect wifi名称
+exit
+
+验证：    ping  
+Ctrl+C退出
+
+换国内源：
+reflector --country China --save /etc/pacman.d/mirrorlist
+cat   /etc/pacman.d/mirrorlist
+生效：
+sudo pacman -Sy
+
+分区：
+lsblk
+格式化 EFI  Arch启动分区
+mkfs.fat  -F32  /dev/nvme0n1p1
+
+格式化 Swap 交换分区
+mkswap /dev/nvme0n1p2
+
+格式化 根目录
+mkfs.ext4 /dev/nvme0n1p3
+
+挂载根目录到 /mnt
+mount /dev/nvme0n1p3 /mnt
+挂载 efi
+mkdir -p /mnt/boot
+mount /dev/nvme0n1p1  /mnt/boot
+启用swap分区
+swapon /dev/nvme0n1p2
+df -h     
+free -h
+
+安装内核：
+pacstrap -K /mnt base base-devel  linux-firmware linux-lts linux-lts-headers mesa xf86-video-amdgpu amd-ucode
+genfstab -U /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+arch-chroot /mnt
