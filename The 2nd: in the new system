@@ -28,7 +28,7 @@ sudo echo 'LANG=zh_CN.UTF-8' | sudo tee /etc/locale.conf
 source /etc/locale.conf
 安装google字体----解决中文乱码
 sudo pacman -S  --needed noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-dejavu ttf-liberation
-
+sudo fc-cache -fv 
 reboot
 
 
