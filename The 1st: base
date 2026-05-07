@@ -43,7 +43,14 @@ df -h
 free -h
 
 安装内核：
-pacstrap -K /mnt base base-devel  linux-firmware linux-lts linux-lts-headers mesa xf86-video-amdgpu amd-ucode
+1.linux内核，amd基础包
+pacstrap /mnt base base-devel  linux-firmware linux-lts linux-lts-headers amd-ucode
+2.开机引导：
+pacstrap /mnt  grub efibootmgr os-prober
+3.网络和编辑器：
+pacstrap /mnt networkmanager iwd vim sudo
+
+
 genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
