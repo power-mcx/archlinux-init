@@ -57,4 +57,35 @@ grub-mkconfig -o /boot/grub/grub.cfg
 验证：
 nvidia-smi
 
+{配置nvidia：（如果黑屏考虑）
+修改启动项：
+sudo nano /etc/default/grub
+修改GRUB_CMDLINE_LINUX_DEFAULT：
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nowatchdog nvidia-drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+更新grub：
+sudo grub-mkconfig -o /boot/grub/grub.cfg}
 
+安装 niri：
+安装登陆器：
+sudo pacman -S greetd greetd-agreety
+sudo systemctl enable greetd
+配置：
+/etc/greetd/config.toml
+添加：
+[
+terminal
+]
+vt = 1
+
+[default_session
+]
+command = "agreety --cmd niri"
+user = "mcx"
+即可生效：
+sudo systemctl restart greetd
+扫描检查：
+sudo systemctl daemon-reload
+reboot
+
+
+配置niri环境变量：
