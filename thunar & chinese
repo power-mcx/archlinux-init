@@ -12,13 +12,12 @@ cd /etc
 sudo nano locale.gen   （去掉 # en_US.UTF-8 UTF-8 以及 zh_CN.UTF-8 UTF-8 前#号后保存）
 （如果是需要设置双系统  可以此时将此配置最后一行提前就设置好 取消掉GRUB_DISABLE_OS_PROBER=false    前面的#号后再保存）
 sudo locale-gen
-su
-echo  "LANG=zh_CN.UTF-8"  > /etc/locale.conf
+sudoecho  "LANG=zh_CN.UTF-8"  > /etc/locale.conf
 reboot
 
 更换jetmono字体：
 sudo pacman -S ttf-jetbrains-mono-nerd
-fc-cache -fv       检查：fc-list | grep -i "jetbrains mono"
+sudo fc-cache -fv       检查：fc-list | grep -i "jetbrains mono"
 配置：
 #先mkdir 建立文件夹
 mkdir   ~/.config/alacritty
