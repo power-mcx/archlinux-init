@@ -16,6 +16,15 @@ sudo systemctl stop NetworkManager
 sudo systemctl start NetworkManager
 sudo systemctl enable --now NetworkManager
 
+创建用户
+
+useradd -m -G wheel -s /bin/bash mcx
+passwd mcx
+nano /etc/sudoers
+删掉#：
+wheel ALL=（ALL：ALL）ALL
+
+
 设置中文：
 nano /etc/locale.gen
 去掉注释：
