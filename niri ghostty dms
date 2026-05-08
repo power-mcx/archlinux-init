@@ -60,11 +60,7 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
-
-
-
---------------------------------------------------------------------
-#在niri配置layout{ 位置 增加 background-color
+修改以下：
 layout {
     background-color "transparent"
 }
