@@ -106,3 +106,12 @@ reboot
 
 
 配置niri环境变量：
+修改kitty终端：
+// 把原来的 terminal 快捷键改成 kitty
+keybind {
+    mod "Super"
+    key "T"
+    action "spawn" "kitty"
+}
+
+
