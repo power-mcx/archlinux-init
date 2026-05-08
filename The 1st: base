@@ -23,6 +23,7 @@ sudo pacman -Sy
 
 分区：
 lsblk
+cfdisk /dev/nvme0n
 格式化 EFI  Arch启动分区
 mkfs.fat  -F32  /dev/nvme0n1p5
 
