@@ -1,3 +1,9 @@
+Clash:
+sudo tar -xf clash.pkg.tar.zst -C /
+sudo pacman -S qt6-base qt6-wayland qt6-svg qt6-webengine webkit2gtk-4.1
+sudo pacman -S libayatana-appindicator
+
+
 安装 paru：
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/paru.git
