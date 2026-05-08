@@ -66,6 +66,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nowatchdog nvidia-drm.modeset=1 nvi
 sudo grub-mkconfig -o /boot/grub/grub.cfg}
 
 安装 niri：
+pacman -S niri alacritty fuzzel thunar xwayland-satellite egl-wayland
 安装登陆器：
 sudo pacman -S greetd greetd-agreety
 sudo systemctl enable greetd
