@@ -24,21 +24,21 @@ sudo pacman -Sy
 分区：
 lsblk
 格式化 EFI  Arch启动分区
-mkfs.fat  -F32  /dev/nvme0n1p1
+mkfs.fat  -F32  /dev/nvme0n1p5
 
 格式化 Swap 交换分区
-mkswap /dev/nvme0n1p2
+mkswap /dev/nvme0n1p6
 
 格式化 根目录
-mkfs.ext4 /dev/nvme0n1p3
+mkfs.ext4 /dev/nvme0n1p7
 
 挂载根目录到 /mnt
-mount /dev/nvme0n1p3 /mnt
+mount /dev/nvme0n1p7 /mnt
 挂载 efi
 mkdir -p /mnt/boot
-mount /dev/nvme0n1p1  /mnt/boot
+mount /dev/nvme0n1p5  /mnt/boot
 启用swap分区
-swapon /dev/nvme0n1p2
+swapon /dev/nvme0n1p6
 df -h     
 free -h
 
