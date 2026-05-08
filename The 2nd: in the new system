@@ -1,6 +1,6 @@
 arch-chroot /mnt
 
-文本编辑器和网络：
+文本编辑器和网络：1
 pacman -S  nano networkmanager
 开机自启网络：
 systemctl enable  NetworkManager
@@ -16,7 +16,7 @@ sudo systemctl stop NetworkManager
 sudo systemctl start NetworkManager
 sudo systemctl enable --now NetworkManager
 
-创建用户
+创建用户2
 
 useradd -m -G wheel -s /bin/bash mcx
 passwd mcx
@@ -25,7 +25,7 @@ nano /etc/sudoers
 wheel ALL=（ALL：ALL）ALL
 
 
-设置中文：
+设置中文：3
 nano /etc/locale.gen
 去掉注释：
 zh_CN.UTF-8 UTF-8
@@ -35,6 +35,8 @@ sudo locale-gen
 全局环境变量：
 sudo echo 'LANG=zh_CN.UTF-8' | sudo tee /etc/locale.conf
 source /etc/locale.conf
+
+
 安装google字体----解决中文乱码
 sudo pacman -S  --needed noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-dejavu ttf-liberation
 sudo fc-cache -fv 
@@ -48,7 +50,7 @@ reboot
 
 
 
-
+4
 启动multilib仓库：
 nano /etc/pacman.conf
 去掉前面的注释：
@@ -56,6 +58,7 @@ nano /etc/pacman.conf
 Include = /etc/pacman.d/mirrorlist
 更新数据包：
 pacman -Syu
+5
 安装amd依赖：
 pacman -S lib32-mesa lib32-vulkan-radeon lib32-libva-mesa-driver
 pacman -S mesa vulkan-radeon libva-mesa-driver
@@ -73,7 +76,7 @@ sudo nano /etc/default/grub
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nowatchdog nvidia-drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"
 更新grub：
 sudo grub-mkconfig -o /boot/grub/grub.cfg}
-
+6
 安装 niri：
 pacman -S niri fuzzel thunar xwayland-satellite egl-wayland
 安装登陆器：
