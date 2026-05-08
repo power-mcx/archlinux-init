@@ -1,1 +1,79 @@
+DMS：
+curl -fsSL https://install.danklinux.com | sh
+重启：
+dms restart
 
+
+#安装图标
+
+paru -S qt6ct-kde 
+
+sudo pacman -S --needed  papirus-icon-theme breeze-icons adwaita-icon-theme
+
+启用 Qt 主题：
+请重启合成器会话以使环境更改生效。
+打开设置 → 主题和颜色
+切换应用 Qt 主题
+
+查看图标使用的是否是 qt6ct
+echo $QT_QPA_PLATFORMTHEME
+
+重启dms的命令 让图标生效，
+dms restart
+
+#如果dms任务栏输入法图标缺失
+#编辑配置文件
+sudo nano  /etc/environment
+
+可以在 /etc/environment 文件中加入
+ QT_QPA_PLATFORMTHEME=qt6ct
+ 然后重启
+
+#下列配置写入niri配置文件  开头就行
+nano ~/.config/niri/config.kdl
+
+#写入
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+
+environment {
+  XDG_CURRENT_DESKTOP "niri"
+  QT_QPA_PLATFORM "wayland"
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
+ QT_QPA_PLATFORMTHEME "qt6ct"
+  QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
+}
+
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="dms:blurwallpaper"
+    place-within-backdrop true
+}
+
+window-rule {
+    match app-id=r#"^org\.gnome\."#
+    draw-border-with-background false
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id="Alacritty"
+    match app-id="zen"
+    match app-id="com.mitchellh.ghostty"
+    match app-id="kitty"
+    draw-border-with-background false
+}
+
+
+
+--------------------------------------------------------------------
+#在niri配置layout{ 位置 增加 background-color
+layout {
+    background-color "transparent"
+}
