@@ -49,7 +49,7 @@ pacstrap /mnt base base-devel  linux-firmware linux-lts linux-lts-headers amd-uc
 2.开机引导：
 pacstrap /mnt  grub efibootmgr os-prober
 3.网络和编辑器：
-pacstrap /mnt networkmanager iwd vim sudo
+pacstrap /mnt networkmanager iwd sudo
 
 
 genfstab -U /mnt >> /mnt/etc/fstab
