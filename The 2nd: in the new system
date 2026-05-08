@@ -2,7 +2,7 @@ arch-chroot /mnt
 
 补一下grub:
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
-
+grub-mkconfig -o /boot/grub/grub.cfg
 
 文本编辑器和网络：1
 pacman -S  nano networkmanager
