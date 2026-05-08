@@ -89,13 +89,10 @@ sudo systemctl enable greetd
 配置：
 /etc/greetd/config.toml
 添加：
-[
-terminal
-]
+[terminal]
 vt = 1
 
-[default_session
-]
+[default_session]
 command = "agreety --cmd niri"
 user = "mcx"
 即可生效：
@@ -106,12 +103,12 @@ reboot
 
 
 配置niri环境变量：
-修改kitty终端：
-// 把原来的 terminal 快捷键改成 kitty
+修改ghostty终端：
+// 把原来的 terminal 快捷键改成 ghostty
 keybind {
     mod "Super"
     key "T"
-    action "spawn" "kitty"
+    action "spawn" "ghostty"
 }
 
 修复greetd自启动：
