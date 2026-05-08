@@ -40,7 +40,7 @@ environment {
   XDG_CURRENT_DESKTOP "niri"
   QT_QPA_PLATFORM "wayland"
   ELECTRON_OZONE_PLATFORM_HINT "auto"
- QT_QPA_PLATFORMTHEME "qt6ct"
+  QT_QPA_PLATFORMTHEME "qt6ct"
   QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
 }
 
@@ -61,19 +61,13 @@ window-rule {
     clip-to-geometry true
 }
 
-window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    match app-id="Alacritty"
-    match app-id="zen"
-    match app-id="com.mitchellh.ghostty"
-    match app-id="kitty"
-    draw-border-with-background false
-}
-
 
 
 --------------------------------------------------------------------
 #在niri配置layout{ 位置 增加 background-color
 layout {
     background-color "transparent"
+}
+focus-ring {
+    off
 }
