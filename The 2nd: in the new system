@@ -114,4 +114,10 @@ keybind {
     action "spawn" "kitty"
 }
 
+修复greetd自启动：
+
+systemctl status greetd
+sudo systemctl enable --now greetd
+systemctl status greetd
+reboot
 
