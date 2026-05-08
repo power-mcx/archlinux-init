@@ -10,7 +10,7 @@ sudo pacman -S  --needed noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-e
 配置：
 cd /etc
 sudo nano locale.gen   （去掉 # en_US.UTF-8 UTF-8 以及 zh_CN.UTF-8 UTF-8 前#号后保存）
-（如果是需要设置双系统  可以此时将此配置最后一行提前就设置好 取消掉GRUB_DISABLE_OS_PROBER=false    前面的#号后再保存）
+（如果是需要设置双系统  可以此时将 /etc/default/grub中最后一行提前就设置好 取消掉GRUB_DISABLE_OS_PROBER=false    前面的#号后再保存）
 sudo locale-gen
 sudoecho  "LANG=zh_CN.UTF-8"  > /etc/locale.conf
 reboot
