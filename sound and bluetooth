@@ -1,0 +1,24 @@
+
+sudo pacman -S --noconfirm linux-firmware linux-firmware-cirrus sof-firmware alsa-utils alsa-firmware alsa-lib pipewire pipewire-pulse pipewire-alsa pipewire-media-session pavucontrol
+
+sudo modprobe snd_hda_intel
+sudo modprobe snd_rn_pci_acp3x
+# 重启 PipeWire
+systemctl --user restart pipewire
+systemctl --user restart pipewire-pulse
+#解除静音
+amixer set Master unmute    //主音量
+#amixer set PCM unmute       //系统
+#amixer set Headphone unmute  //耳机
+ 
+ 
+#蓝牙：
+sudo pacman -S --needed bluez bluez-utils wireplumber
+sudo systemctl enable --now bluetooth
+#重置音频：
+systemctl --user restart pipewire wireplumber
+#图形化工具：
+sudo pacman -S blueman
+#终端输入：blueman-manager即可使用
+
+ 
