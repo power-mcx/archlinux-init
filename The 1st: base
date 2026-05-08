@@ -51,7 +51,6 @@ pacstrap /mnt  grub efibootmgr os-prober
 3.网络和编辑器：
 pacstrap /mnt networkmanager iwd sudo
 
-
 genfstab -U /mnt >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 
