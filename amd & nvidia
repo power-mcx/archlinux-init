@@ -1,1 +1,30 @@
+从内核查看全局性能模式：
+cat /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy
+输出结果：
+0 = 平衡模式（Balanced）
+1 = 强效 / 性能模式（Performance）
+2 = 静音模式（Quiet）
+整体性能修改：
+echo 0 | sudo tee /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy
+echo 1 | sudo tee /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy
+echo 2 | sudo tee /sys/devices/platform/asus-nb-wmi/throttle_thermal_policy
+
+
+
+
+
+
+
+
+n卡状态：
+nvidia-smi
+渲染模式（看核显还是独显）：
+glxinfo | grep "OpenGL renderer"
+查看显卡功耗限制：
+cat /sys/class/drm/card1/device/hwmon/hwmon1/power1_cap
+查看当前风扇转速：
+cat /sys/class/hwmon/hwmon1/fan1_input
+
+
+
 
