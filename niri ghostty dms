@@ -67,3 +67,16 @@ layout {
 focus-ring {
     off
 }
+
+生成目录：
+1.确保中文系统
+sudo vim /etc/locale.gen
+en_US.UTF-8 UTF-8
+zh_CN.UTF-8 UTF-8
+sudo locale-gen
+2.强制英文目录
+# 强制用英文生成xdg目录
+LANG=en_US.UTF-8 xdg-user-dirs-update --force
+echo "enabled=false" > ~/.config/user-dirs.conf
+reboot
+
