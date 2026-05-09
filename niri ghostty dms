@@ -79,4 +79,15 @@ sudo locale-gen
 LANG=en_US.UTF-8 xdg-user-dirs-update --force
 echo "enabled=false" > ~/.config/user-dirs.conf
 reboot
+全部合并只用一个 Documents 文件夹
+nano ~/.config/user-dirs.dirs
+修改：
+XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DOWNLOAD_DIR="$HOME/Documents"
+XDG_TEMPLATES_DIR="$HOME/Documents"
+XDG_PUBLICSHARE_DIR="$HOME/Documents"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_MUSIC_DIR="$HOME/Documents"
+XDG_PICTURES_DIR="$HOME/Documents"
+XDG_VIDEOS_DIR="$HOME/Documents"
 
