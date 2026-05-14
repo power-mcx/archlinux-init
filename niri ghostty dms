@@ -91,4 +91,30 @@ XDG_MUSIC_DIR="$HOME/Documents"
 XDG_PICTURES_DIR="$HOME/Documents"
 XDG_VIDEOS_DIR="$HOME/Documents"
 
+如果dms,fcitx这些没有开机自启：
+看开机日志：
+journalctl --user -b -u dms
+显示：
+-- No entries --
+则基本可以确定linger没有开启
+
+1.看linger是否开启：
+loginctl show-user $USER | grep Linger
+no：没开
+设置开启：
+sudo loginctl enable-linger $USER
+systemctl --user daemon-reload
+systemctl --user enable dms
+systemctl --user enable --now fcitx5
+reboot验证
+（备用：关闭linger：sudo loginctl disable-linger $USER）
+2.看dms.service配置：
+cat /usr/lib/systemd/user/dms.service
+修改：
+[Install]
+WantedBy=graphical-session.target
+重载：
+systemctl --user daemon-reload
+systemctl --user enable dms
+
 
