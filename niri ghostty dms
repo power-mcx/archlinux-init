@@ -117,4 +117,19 @@ WantedBy=graphical-session.target
 systemctl --user daemon-reload
 systemctl --user enable dms
 
+由于niri的xwayland无法正常打开typora,删掉，改用kde：
+# 1. 卸载冲突的 wlr portal（必须，和 KDE 不兼容）
+sudo pacman -Rns xdg-desktop-portal-wlr
+
+# 2. 卸载残留的 niri/quickshell 组件
+sudo pacman -Rns niri quickshell-git xwayland-satellite
+
+# 3. 强制安装 KDE 专用 portal
+sudo pacman -S --needed xdg-desktop-portal-kde xdg-desktop-portal-gtk
+
+# 4. 重新启用 SDDM 登录器
+sudo systemctl enable --force sddm
+
+# 5. 重启
+reboot
 
