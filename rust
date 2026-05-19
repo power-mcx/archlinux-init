@@ -1,0 +1,48 @@
+安装：
+sudo pacman -Syu base-devel curl git
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh      //输入1，回车
+验证：
+rustc --version
+cargo --version
+
+更新与卸载：
+rustup update
+rustup self uninstall
+
+配置国内源：
+mkdir -p ~/.cargo
+cat > ~/.cargo/config.toml << 'EOF'
+[source.crates-io]
+replace-with = "ustc"
+
+[source.ustc]
+registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
+
+[build]
+jobs = 12
+EOF
+安装vscode：
+git clone https://aur.archlinux.org/visual-studio-code-bin.git
+cd visual-studio-code-bin
+makepkg -si
+安装vscode插件：
+rust-analyzer
+Even Better TOML
+Dracula Theme Official
+
+测试：
+mkdir -p projects
+cd projeccts
+
+cargo new hello_cargo    //创建项目
+cd hello_cargo
+
+cargo build    //在hello_cargo目录构建项目
+cargo run      //运行
+cargo check    //检查代码，确保其可编译，但不产生可执行文件
+
+
+rust离线教程：
+cargo new get-dependencies
+cd get-dependencies
+cargo add rand@0.8.5 trpl@0.2.0
