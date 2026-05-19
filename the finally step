@@ -1,0 +1,204 @@
+下载：arch官网
+u盘制作：rufus    选GPT
+
+BIOS启动，关闭
+
+联网：
+rfkill unblock wifi
+iwctl
+device list
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect wifi名称
+exit
+
+验证：    ping  
+Ctrl+C退出
+
+换国内源：
+reflector --country China --save /etc/pacman.d/mirrorlist
+cat   /etc/pacman.d/mirrorlist
+生效：
+sudo pacman -Sy
+
+分区：
+lsblk
+cfdisk /dev/nvme0n1
+格式化 EFI  Arch启动分区
+mkfs.fat  -F32  /dev/nvme0n1p5
+
+格式化 Swap 交换分区
+mkswap /dev/nvme0n1p6
+
+格式化 根目录
+mkfs.ext4 /dev/nvme0n1p7
+
+挂载根目录到 /mnt
+mount /dev/nvme0n1p7 /mnt
+挂载 efi
+mkdir -p /mnt/boot
+mount /dev/nvme0n1p5  /mnt/boot
+启用swap分区
+swapon /dev/nvme0n1p6
+df -h     
+free -h
+
+安装内核：
+linux内核，amd基础包
+pacstrap /mnt base base-devel  linux-firmware linux-lts linux-lts-headers amd-ucode
+
+genfstab -U /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+
+进入新系统：
+arch-chroot /mnt
+
+1.文本编辑器和网络：
+pacman -S  nano networkmanager
+开机自启网络：
+systemctl enable  NetworkManager
+
+设置root密码：
+passwd root
+
+安装grub，建立arch引导：
+pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit
+umount -R /mnt
+reboot
+
+2.联网，创建用户
+nmtui       //配置网络
+没网的话，手动网络连接：
+sudo systemctl enable --now NetworkManager
+nmcli device wifi list
+nmcli device wifi connect "你的WiFi名称" password "你的WiFi密码"
+开机网络自启修复：
+systemctl status NetworkManager
+
+sudo systemctl stop NetworkManager
+sudo systemctl start NetworkManager
+sudo systemctl enable --now NetworkManager
+
+创建用户：
+useradd -m -G wheel -s /bin/bash mcx
+passwd mcx
+nano /etc/sudoers
+删掉#：
+wheel ALL=（ALL：ALL）ALL
+
+3.安装kde，启用sddm
+pacman -S --needed sddm xorg plasma-meta knosole kate dolphin ark sudo plasma-workspace xdg-desktop-portal egl-wayland
+systemctl enable sddm
+
+4.安装amd和nvidia驱动
+启动multilib仓库：
+nano /etc/pacman.conf
+去掉前面的注释：
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+更新数据包：
+pacman -Syu
+
+pacman -S lib32-mesa lib32-vulkan-radeon lib32-libva-mesa-driver
+pacman -S mesa vulkan-radeon libva-mesa-driver
+
+pacman -S nvidia-open-lts nvidia-utils nvidia-settings nvidia-prime
+reboot
+
+5.校准时间
+# 列出可用的亚洲时区
+timedatectl list-timezones | grep Shanghai
+
+# 设置为上海时区（中国标准时间 UTC+8）
+sudo timedatectl set-timezone Asia/Shanghai
+
+# 确保 NTP 同步开启
+sudo timedatectl set-ntp true
+
+# 强制立即同步时间
+sudo systemctl restart systemd-timesyncd
+
+验证：
+timedatectl
+
+类似于：
+Local time: Thu 2025-05-07 12:50:xx CST
+Universal time: Thu 2025-05-07 04:50:xx UTC
+Time zone: Asia/Shanghai (CST, +0800)
+RTC time: Thu 2025-05-07 12:50:xx
+System clock synchronized: yes
+NTP service: active
+RTC in local TZ: yes
+
+6.安装更纱字体：
+sudo pacman -S ttf-sarasa-gothic
+fc-cache -fv
+
+fc-list | grep "Sarasa Mono SC"
+
+mkdir -p ~/.config/fontconfig
+cat > ~/.config/fontconfig/fonts.conf << EOF
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <!-- 无衬线界面字体（更纱黑体常规） -->
+  <match target="pattern">
+    <test qual="any" name="family"><string>sans-serif</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Sarasa Gothic SC</string></edit>
+  </match>
+
+  <!-- 等宽终端/代码字体（更纱黑体等宽） -->
+  <match target="pattern">
+    <test qual="any" name="family"><string>monospace</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Sarasa Mono SC</string></edit>
+  </match>
+
+  <!-- 替换默认Arial -->
+  <match target="pattern">
+    <test qual="any" name="family"><string>Arial</string></test>
+    <edit name="family" mode="assign" binding="same"><string>Sarasa Gothic SC</string></edit>
+  </match>
+
+  <!-- 抗锯齿+渲染优化 -->
+  <match target="font">
+    <edit mode="assign" name="antialias"><bool>true</bool></edit>
+    <edit mode="assign" name="hinting"><bool>true</bool></edit>
+    <edit mode="assign" name="hintstyle"><const>hintslight</const></edit>
+    <edit mode="assign" name="rgba"><const>rgb</const></edit>
+    <edit mode="assign" name="lcdfilter"><const>lcddefault</const></edit>
+  </match>
+</fontconfig>
+EOF
+
+注销或重启
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+补充：双系统添加win开机引导：
+cd /
+sudo nano /etc/default/grub    //取消最后一行的注释
+
+su
+lsblk
+mount /dev/nvme0n1p1 /mnt    //挂在win引导分区
+os-prober    //建立引导
+grub-mkconfig -o /boot/grub/grub.cfg
+
