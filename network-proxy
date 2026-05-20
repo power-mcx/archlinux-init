@@ -1,0 +1,16 @@
+1.代理：
+若有离线包，则：
+pacman -U 离线包名
+给普通用户开启tun权限：
+which clash-verge    //查位置
+基本是：/usr/bin/clash-verge
+sudo setcap cap_net_bind_service,cap_net_admin=ep /usr/bin/clash-verge
+
+    给 /usr/bin/clash-verge 永久授予网络特权：
+    cap_net_bind_service：绑定 1024 以下特权端口（80/443）
+    cap_net_admin：操作 TUN 虚拟网卡、全局代理
+
+clash-verge & disown    //后台常驻运行,直接点开clash也行
+
+撤销权限：
+sudo setcap -r /usr/bin/clash-verge
