@@ -209,9 +209,9 @@ sudo nano /etc/default/grub
 GRUB_GFXMODE=2880x1800,1920x1080,auto
 GRUB_GFXPAYLOAD_LINUX=keep
 生成字体
-sudo grub-mkfont -s 44 -o /boot/grub/fonts/big.pf2 /usr/share/fonts/TTF/DejaVuSansMono.ttf
+sudo grub-mkfont -s 40 -o /boot/grub/fonts/sarasa.pf2 /usr/share/fonts/sarasa-gothic/Sarasa-Regular.ttc
 再往里添加：sudo nano /etc/default/grub
-GRUB_FONT=/boot/grub/fonts/big.pf2    //字体
+GRUB_FONT=/boot/grub/fonts/sarasa.pf2    //字体
 GRUB_VIDEO_BACKEND=efi_gop    //居中
 保存重启：
 sudo grub-mkconfig -o /boot/grub/grub.cfg
