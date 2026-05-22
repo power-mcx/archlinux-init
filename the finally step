@@ -174,7 +174,6 @@ cat > ~/.config/fontconfig/fonts.conf << EOF
   </match>
 </fontconfig>
 EOF
-
 注销或重启
 
 
@@ -191,6 +190,29 @@ EOF
 
 
 
+
+
+原生微信：
+打开    https://linux.weixin.qq.com/    下载Inmanage版本
+cd Downloads
+sudo mkdir -p /opt/apps
+sudo mv WeChatLinux_x86_64.AppImage /opt/apps
+cd /opt/apps
+chmod +x WeChatLinux_x86_64.AppImage
+添加快捷方式：
+cat > /home/mcx/.local/share/applications/wechat.desktop << 'EOF'
+[Desktop Entry]
+Type=Application
+Name=微信
+Comment=微信官方原生版
+Exec=/opt/apps/WeChatLinux_x86_64.AppImage
+Icon=wechat
+Terminal=false
+Categories=Network;InstantMessaging;
+StartupWMClass=wechat
+EOF
+刷新菜单：
+update-desktop-database ~/.local/share/applications/
 
 
 补充：双系统添加win开机引导：
