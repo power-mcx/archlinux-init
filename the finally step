@@ -204,7 +204,7 @@ cat > /home/mcx/.local/share/applications/wechat.desktop << 'EOF'
 [Desktop Entry]
 Type=Application
 Name=微信
-Comment=微信官方原生版
+Comment=WeChat
 Exec=/opt/apps/WeChatLinux_x86_64.AppImage
 Icon=wechat
 Terminal=false
