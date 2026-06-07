@@ -92,7 +92,7 @@ nano /etc/sudoers
 wheel ALL=（ALL：ALL）ALL
 
 3.安装kde，启用sddm
-pacman -S --needed sddm xorg plasma-meta knosole kate dolphin ark sudo plasma-workspace xdg-desktop-portal egl-wayland
+pacman -S --needed sddm xorg plasma-meta konsole kate dolphin ark sudo plasma-workspace xdg-desktop-portal egl-wayland
 systemctl enable sddm
 
 4.安装amd和nvidia驱动
@@ -176,9 +176,17 @@ cat > ~/.config/fontconfig/fonts.conf << EOF
 EOF
 注销或重启
 
+配置中文：
+cd /etc
+sudo nano locale.gen   （去掉 # en_US.UTF-8 UTF-8 以及 zh_CN.UTF-8 UTF-8 前#号后保存）
+（如果是需要设置双系统  可以此时将 /etc/default/grub中最后一行提前就设置好 取消掉GRUB_DISABLE_OS_PROBER=false    前面的#号后再保存）
+sudo locale-gen
+sudoecho  "LANG=zh_CN.UTF-8"  > /etc/locale.conf
+reboot
 
-
-
+中文输入法：
+sudo pacman -S --needed fcitx5-im fcitx5-chinese-addons fcitx5-pinyin-zhwiki fcitx5-configtool fcitx5-material-color
+部分软件无法使用中文输入法：
 
 
 
@@ -239,3 +247,7 @@ GRUB_VIDEO_BACKEND=efi_gop    //居中
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 reboot
 
+DS5手柄：
+paru -S game-devices-udev
+sudo systemctl restart bluetooth
+关机状态下，长按左侧小键+ps键3秒，进入配对模式
