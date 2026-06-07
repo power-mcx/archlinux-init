@@ -247,6 +247,9 @@ GRUB_VIDEO_BACKEND=efi_gop    //居中
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 reboot
 
+蓝牙：
+sudo pacman -S --needed bluez bluez-utils wireplumber
+sudo systemctl enable --now bluetooth
 DS5手柄：
 paru -S game-devices-udev
 sudo systemctl restart bluetooth
